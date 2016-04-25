@@ -13,5 +13,15 @@ namespace desafio.app.domain
         
         public int Prefix { get; protected set; } 
         public string Number { get; protected set; } 
+        
+         public void setPrefix(int prefix){
+            // TODO: assertion
+            Prefix = prefix;       
+        }
+        
+         public void setNumber(string number){
+            // TODO: assertion
+            Number = number;       
+        }
     }
 }

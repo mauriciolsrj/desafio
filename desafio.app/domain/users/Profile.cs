@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace desafio.app.domain
 {
-    public class Profile
+    public class Profile : EntityBase<int>
     {
         public Profile()
         {
@@ -17,7 +17,7 @@ namespace desafio.app.domain
         
         public void setUserId(string name){
             // TODO: assertion
-            Name = name;       
+            Name = name;  
         }
         public void setName(string name){
             // TODO: assertion

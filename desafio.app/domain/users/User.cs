@@ -17,5 +17,20 @@ namespace desafio.app.domain
         
         public DateTime LastLogon{ get; protected set; }
         public DateTime Created { get; protected set; }
+        
+        public void setEmail(string email){
+            // TODO: assertion
+            Email = email;       
+        }
+        
+        public void setPassword(string password){
+            // TODO: assertion
+            Password = password;       
+        }
+        
+         public void setLastLogon(DateTime lastLogon){
+            // TODO: assertion
+            LastLogon = lastLogon;       
+        }
     }
 }
