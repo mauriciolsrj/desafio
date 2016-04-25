@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using desafio.app;
+using desafio.app.domain;
+using desafio.app.service;
 
 namespace desafio.api.Controllers
 {
@@ -11,9 +14,16 @@ namespace desafio.api.Controllers
     {
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<User> Get()
         {
-            return new string[] { "value1", "value2" };
+           var service = new RegisterUserService();
+            
+            var user = new User();
+            user.SetEmail("user00001@gmail.com");
+            user.SetPassword("kasjf8");
+            var all = service.Insert(user);
+            
+            return all;
         }
 
         // GET api/values/5

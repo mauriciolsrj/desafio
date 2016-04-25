@@ -13,6 +13,7 @@ namespace desafio.app.context
         public UsersContext(DbContextOptions options)
         : base(options)
         {
+            
         }
         
         public DbSet<User> Users { get; set; }

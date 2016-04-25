@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 namespace desafio.app.domain
 {
@@ -14,13 +15,17 @@ namespace desafio.app.domain
         public int Prefix { get; protected set; } 
         public string Number { get; protected set; } 
         
-         public void setPrefix(int prefix){
-            // TODO: assertion
+         public void SetPrefix(int prefix){
+             if(prefix==0)
+                throw new ArgumentException("Informe o prefixo do telefone.");
+            
             Prefix = prefix;       
         }
         
-         public void setNumber(string number){
-            // TODO: assertion
+         public void SetNumber(string number){
+            if(string.IsNullOrEmpty(number))
+                throw new ArgumentException("Informe o número do telefone.");
+            
             Number = number;       
         }
     }

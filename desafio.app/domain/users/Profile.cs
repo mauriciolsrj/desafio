@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 namespace desafio.app.domain
 {
@@ -9,22 +10,30 @@ namespace desafio.app.domain
     {
         public Profile()
         {
+            Telphones = new List<Telphone>();
         }
     
         public int UserId { get; protected set; }
         public string Name { get; protected set; }
         public ICollection<Telphone> Telphones { get; protected set; }
         
-        public void setUserId(string name){
-            // TODO: assertion
-            Name = name;  
+        public void SetUserId(int userId){
+            if(userId==0)
+                throw new ArgumentException("Informe o userId do perfil.");
+            
+            UserId = userId;  
         }
-        public void setName(string name){
-            // TODO: assertion
+        public void SetName(string name){
+            if(string.IsNullOrEmpty(name))
+                throw new ArgumentException("Informe o nome do perfil.");
+            
             Name = name;       
         }
         
-        public void addTelphone(Telphone tel){
+        public void AddTelphone(Telphone tel){
+            if(tel==null)
+                throw new ArgumentException("Informe um telefone válido.");
+                
             Telphones.Add(tel);
         }
     }
