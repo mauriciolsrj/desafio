@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Diagnostics.Contracts;
+using desafio.app.util;
 
 namespace desafio.app.domain
 {
@@ -11,6 +11,8 @@ namespace desafio.app.domain
         public User()
         {
             Created = DateTime.Now;
+            LastLogon = DateTime.Now;
+            Id = Guid.NewGuid();
         }
         
         public string Email { get; protected set; }
@@ -23,18 +25,20 @@ namespace desafio.app.domain
             if(string.IsNullOrEmpty(email))
                 throw new ArgumentException("Informe o e-mail do usuário.");
             
-            Email = email;       
+            Email = email;
         }
         
         public void SetPassword(string password){
            if(string.IsNullOrEmpty(password))
                 throw new ArgumentException("Informe a senha do usuário.");
             
+            password = CryptoUtility.GetMD5Hash(password);
+            
             Password = password;       
         }
         
          public void SetLastLogon(DateTime lastLogon){
-             if(lastLogon==null)
+             if(lastLogon==DateTime.MinValue)
                 throw new ArgumentException("Data de último acesso inválida.");
             
             LastLogon = lastLogon;       

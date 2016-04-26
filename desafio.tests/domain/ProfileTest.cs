@@ -42,7 +42,7 @@ namespace desafio.tests
         public void SetUserId()
         { 
             var profile = new Profile();
-            var userId = 10;
+            var userId = Guid.NewGuid();
              
             profile.SetUserId(userId);
             
@@ -53,7 +53,7 @@ namespace desafio.tests
         public void SetUserIdWhenUserIdIsZero()
         { 
             var profile = new Profile();
-            var userId = 0;
+            var userId = Guid.Empty;
             
             try
             {

@@ -15,15 +15,7 @@ namespace desafio.app.repository
             
         }
         
-        public override User GetById(int id) {
-            return null;
-        }
-
-        public override IQueryable<User> GetAll(Expression<Func<User, bool>> filter) { 
-               return context.Users.Take(10);
-        }
-        
-         public override IQueryable<User> GetAll() { 
+        public override IQueryable<User> GetAll() { 
                return context.Users.Take(10);
         }
 
@@ -32,8 +24,9 @@ namespace desafio.app.repository
             context.SaveChanges();
         }
         
-        public override void Delete(int id) { 
-            
+         public User GetByEmail(string email){
+            // TODO: rever o IEnumerable no Core 1.0
+            return context.Users.ToList().FirstOrDefault();
         }
         
         public override void Delete(User entity) { 

@@ -19,12 +19,13 @@
         "Microsoft.CSharp": "4.0.1-beta-23516",
         "System.Collections": "4.0.11-beta-23516",
         "System.Linq": "4.0.1-beta-23516",
-        "System.Threading": "4.0.11-beta-23516"
+        "System.Threading": "4.0.11-beta-23516",
+        "System.Net.Security": "4.0.0-beta-*",
+        "Microsoft.NETCore.Platforms": "1.0.1-beta-*"
       }
     }
   },
   "dependencies": {
-    "EntityFramework.InMemory": "7.0.0-rc1-final",
-    "System.Diagnostics.Contracts": "4.0.1-beta-23516"
+    "EntityFramework.InMemory": "7.0.0-rc1-final"
   }
 }

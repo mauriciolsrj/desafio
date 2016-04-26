@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Diagnostics.Contracts;
 
 namespace desafio.app.domain
 {
@@ -13,12 +12,12 @@ namespace desafio.app.domain
             Telphones = new List<Telphone>();
         }
     
-        public int UserId { get; protected set; }
+        public Guid UserId { get; protected set; }
         public string Name { get; protected set; }
         public ICollection<Telphone> Telphones { get; protected set; }
         
-        public void SetUserId(int userId){
-            if(userId==0)
+        public void SetUserId(Guid userId){
+            if(userId==null)
                 throw new ArgumentException("Informe o userId do perfil.");
             
             UserId = userId;  
