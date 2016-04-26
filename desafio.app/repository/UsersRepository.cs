@@ -14,23 +14,18 @@ namespace desafio.app.repository
         public UsersRepository(UsersContext context) : base(context) {
             
         }
-        
-        public override IQueryable<User> GetAll() { 
-               return context.Users.Take(10);
-        }
 
         public override void Insert(User entity) {
             context.Users.Add(entity);
             context.SaveChanges();
         }
         
-         public User GetByEmail(string email){
-            // TODO: rever o IEnumerable no Core 1.0
-            return context.Users.ToList().FirstOrDefault();
+        public User GetByEmail(string email){
+            return context.Users.FirstOrDefault(u=> u.Email == email);
         }
         
-        public override void Delete(User entity) { 
-            
+        public bool VerifyUserExistsByEmail(string email){
+            return context.Users.FirstOrDefault(u=> u.Email == email) != null;
         }
     }
 }

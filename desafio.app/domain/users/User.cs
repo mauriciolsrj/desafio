@@ -43,5 +43,9 @@ namespace desafio.app.domain
             
             LastLogon = lastLogon;       
         }
+        
+        public bool PasswordMatch(string password){
+            return password == Password;
+        }
     }
 }

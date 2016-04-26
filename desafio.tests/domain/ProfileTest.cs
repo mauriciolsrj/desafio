@@ -28,14 +28,9 @@ namespace desafio.tests
             var profile = new Profile();
             var name = "";
             
-            try
-            {
-                profile.SetName(name);
-            }
-            catch (ArgumentException ae)
-            {
-                Assert.Equal(ae.GetType(), typeof(ArgumentException));
-            }
+            Exception ex = Assert.Throws<ArgumentException>(() => profile.SetName(name));
+            
+            Assert.Equal("Informe o nome do perfil.", ex.Message);
         }
         
         [Fact]
@@ -55,14 +50,9 @@ namespace desafio.tests
             var profile = new Profile();
             var userId = Guid.Empty;
             
-            try
-            {
-                profile.SetUserId(userId);
-            }
-            catch (ArgumentException ae)
-            {
-                Assert.Equal(ae.GetType(), typeof(ArgumentException));
-            }
+            Exception ex = Assert.Throws<ArgumentException>(() => profile.SetUserId(userId));
+            
+            Assert.Equal("Informe o userId do perfil.", ex.Message);
         }
         
         [Fact]

@@ -1,5 +1,4 @@
 
-            
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +18,14 @@ namespace desafio.app.service
         protected UsersContext context;
         
         public ServiceBase() {
-            context = ContextFactory.Create();
+            InitializeContext();
         }
         
-        public void ContextDispose(){
+        private void InitializeContext(){
+            context = ContextFactory.Create();   
+        }
+        
+        protected void DisposeContext(){
             context.Dispose();
         }
     }

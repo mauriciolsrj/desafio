@@ -15,21 +15,13 @@ namespace desafio.app.repository
             
         }
         
-        public Profile GetByUserId(Guid userId){
-            return context.Profiles.FirstOrDefault(p=> p.UserId == userId);
-        }
-        
-        public override IQueryable<Profile> GetAll() { 
-            return context.Profiles.Take(10);
-        }
-
         public override void Insert(Profile entity) {
             context.Profiles.Add(entity);
             context.SaveChanges();
         }
         
-        public override void Delete(Profile entity) { 
-            
-        }
+        public Profile GetByUserId(Guid userId){
+            return context.Profiles.FirstOrDefault(p=> p.UserId == userId);
+        }   
     }
 }

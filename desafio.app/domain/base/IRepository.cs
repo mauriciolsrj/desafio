@@ -8,8 +8,6 @@ namespace desafio.app.domain
 {
     public interface IRepository<T> where T : class
     {
-        IQueryable<T> GetAll();
         void Insert(T entity);
-        void Delete(T entity);
     }
 }

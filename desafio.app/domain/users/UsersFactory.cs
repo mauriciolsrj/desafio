@@ -9,32 +9,46 @@ namespace desafio.app.domain
     public class UsersFactory
     {
         private SignUpModel model;
+        private User user;
+        private Profile profile;
         
         public UsersFactory(SignUpModel model){
             this.model = model;
-        } 
+        }
         
-        public User CreateUser(){
-            var user = new User();
-            user.SetEmail(model.email);
-            user.SetPassword(model.senha);
+        public void Create(){
+            CreateUser();
+            CreateProfile();
+        }
+        
+        public User GetUser(){
             return user;
         }
         
-        public Profile CreateProfile(){
-            var profile = new Profile();
+        public Profile GetProfile(){
+            return profile;
+        }
+        
+        internal void CreateUser(){
+            user = new User();
+            user.SetEmail(model.email);
+            user.SetPassword(model.senha);
+        }
+        
+        internal void CreateProfile(){
+            profile = new Profile();
             profile.SetName(model.nome);
             
-            foreach (var telphoneModel in model.telefones)
-            {
-                var tel = new Telphone();
-                tel.SetPrefix(telphoneModel.ddd);
-                tel.SetNumber(telphoneModel.numero);
-                
-                profile.AddTelphone(tel);
+            if(model.telefones!=null){
+                foreach (var telphoneModel in model.telefones)
+                {
+                    var tel = new Telphone();
+                    tel.SetPrefix(telphoneModel.ddd);
+                    tel.SetNumber(telphoneModel.numero);
+                    
+                    profile.AddTelphone(tel);
+                }
             }
-            
-            return profile;
         }
     }
 }

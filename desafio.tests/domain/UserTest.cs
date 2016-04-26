@@ -28,14 +28,9 @@ namespace desafio.tests
             var user = new User();
             var email = "";
             
-            try
-            {
-                user.SetEmail(email);
-            }
-            catch (ArgumentException ae)
-            {
-                Assert.Equal(ae.GetType(), typeof(ArgumentException));
-            }
+            Exception ex = Assert.Throws<ArgumentException>(() => user.SetEmail(email));
+            
+            Assert.Equal("Informe o e-mail do usuário.", ex.Message);
         }
         
         [Fact]
@@ -54,14 +49,9 @@ namespace desafio.tests
         { 
             var user = new User();
             
-            try
-            {
-                user.SetLastLogon(DateTime.MinValue);
-            }
-            catch (ArgumentException ae)
-            {
-                Assert.Equal(ae.GetType(), typeof(ArgumentException));
-            }
+            Exception ex = Assert.Throws<ArgumentException>(() => user.SetLastLogon(DateTime.MinValue));
+            
+            Assert.Equal("Data de último acesso inválida.", ex.Message);
         }
     }
 }

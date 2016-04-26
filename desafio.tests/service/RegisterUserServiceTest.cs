@@ -13,32 +13,58 @@ namespace desafio.tests
         [Fact]
         public void RegisterUserProfileWithTelphones()
         { 
+            var name = "Maurício Luís dos Santos";
+            var email = "mauriciolsrj@gmail.com";
+            var password = "abc123";
+            var prefix = 21;
+            var number = "31785826";
+            
             var model = new SignUpModel(){
-                nome = "Maurício Luís dos Santos",
-                email = "mauriciolsrj@gmail.com",
-                senha = "abc123",
+                nome = name,
+                email = email,
+                senha = password,
                 telefones = new List<TelphoneModel>(){
                     new TelphoneModel(){
-                        ddd = 21,
-                        numero = "31785826"
+                        ddd = prefix,
+                        numero = number
                     }
                 }
             };
             
-            RegisteredUserModel response;
+            var service = new RegisterUserService();
+            var response = service.Register(model);
             
-            var profile = new Profile();
+            Assert.Equal(model.nome, response.nome);
+            Assert.Equal(model.email, response.email);
+        }
+        
+        [Fact]
+        public void RegisterDuplicatedUser()
+        { 
+           var name = "Maurício Luís dos Santos";
+            var email = "mauriciolsrj1@gmail.com";
+            var password = "abc123";
+            var prefix = 21;
+            var number = "31785826";
             
-            using (var service = new RegisterUserService()){
-                response = service.Register(model);
-                profile = service.GetByUserId();
-                Console.WriteLine("Profile Obtido: " + profile.Name);
-            }
+            var model = new SignUpModel(){
+                nome = name,
+                email = email,
+                senha = password,
+                telefones = new List<TelphoneModel>(){
+                    new TelphoneModel(){
+                        ddd = prefix,
+                        numero = number
+                    }
+                }
+            };
             
-            Console.WriteLine("Name: " + response.nome);            
-            Console.WriteLine("TOKEN: " + response.token);
-            Console.WriteLine("UserId: " + response.id);
-            Console.WriteLine("Password: " + response.senha);
+            var service = new RegisterUserService();
+            var response = service.Register(model);
+            
+            Exception ex = Assert.Throws<ArgumentException>(() => service.Register(model));
+            
+            Assert.Equal("E-mail já existente", ex.Message);
         }
     }
 }

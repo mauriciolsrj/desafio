@@ -28,14 +28,9 @@ namespace desafio.tests
             var tel = new Telphone();
             var prefix = 0;
             
-            try
-            {
-                tel.SetPrefix(prefix);
-            }
-            catch (ArgumentException ae)
-            {
-                Assert.Equal(ae.GetType(), typeof(ArgumentException));
-            }
+            Exception ex = Assert.Throws<ArgumentException>(() => tel.SetPrefix(prefix));
+            
+            Assert.Equal("Informe o prefixo do telefone.", ex.Message);
         }
         
         [Fact]
@@ -55,14 +50,9 @@ namespace desafio.tests
             var tel = new Telphone();
             var number = "";
             
-            try
-            {
-                tel.SetNumber(number);
-            }
-            catch (ArgumentException ae)
-            {
-                Assert.Equal(ae.GetType(), typeof(ArgumentException));
-            }
+            Exception ex = Assert.Throws<ArgumentException>(() => tel.SetNumber(number));
+            
+            Assert.Equal("Informe o número do telefone.", ex.Message);
         }
     }
 }

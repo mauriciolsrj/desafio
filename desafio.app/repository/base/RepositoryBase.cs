@@ -17,10 +17,8 @@ namespace desafio.app.repository
         public RepositoryBase(UsersContext context) {
             this.context = context;
         }
-
-        public abstract IQueryable<T> GetAll();
+        
         public abstract void Insert(T entity);
-        public abstract void Delete(T entity);
 
         public void Dispose() {
             if (context != null)

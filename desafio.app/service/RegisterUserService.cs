@@ -15,52 +15,40 @@ using Microsoft.Data.Entity.Infrastructure;
 
 namespace desafio.app.service
 {
-    public class RegisterUserService : ServiceBase, IDisposable
+    public class RegisterUserService : AccountsService
     {
-        private UsersRepository usersRepository;
-        private ProfileRepository profileRepository;
-        
         public RegisterUserService() {
-            usersRepository = new UsersRepository(context);
-            profileRepository = new ProfileRepository(context);
-        }
-        
-        public Profile GetByUserId(Guid userId){
-            return profileRepository.GetByUserId(userId);
         }
         
         public RegisteredUserModel Register(SignUpModel model){
-            var factory = new UsersFactory(model);
-            var user = factory.CreateUser();
-            var profile = factory.CreateProfile();
-            
-            if(usersRepository.GetByEmail(user.Email)!=null){
-                throw new ArgumentException("E-mail já existente");
+            try
+            {
+                factory = new UsersFactory(model);
+                factory.Create();
+                user = GetUser();
+                profile = GetProfile();
+                profile.SetUserId(user.Id);
+                
+                ValidateDuplicatedUser();
+
+                usersRepository.Insert(user);
+                profileRepository.Insert(profile);
+                
+                return GetRegisteredUserModel();
             }
-            
-            usersRepository.Insert(user);
-            profile.SetUserId(user.Id);
-            profileRepository.Insert(profile);
-            
-            var registeredUserModel = new RegisteredUserModel(){
-                nome = profile.Name,
-                email = user.Email,
-                senha = user.Password,
-                telefones = model.telefones,
-                data_criacao = user.Created,
-                data_atualizacao = user.Created,
-                ultimo_login = user.LastLogon,
-                id = user.Id,
-                token = Guid.NewGuid()
-            };
-            
-            return registeredUserModel;
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                Dispose();
+            }
         }
         
-        public void Dispose(){
-            usersRepository.Dispose();
-            profileRepository.Dispose();
-            ContextDispose();
+        private void ValidateDuplicatedUser(){
+            if(usersRepository.VerifyUserExistsByEmail(user.Email))
+                    throw new ArgumentException("E-mail já existente");
         }
     }
 }

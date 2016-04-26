@@ -18,10 +18,9 @@ namespace desafio.api.Controllers
         [HttpGet("profile/{id}")]
         public object Profile(Guid id)
         {
-            var service = new RegisterUserService();
-            
             try
             {
+                var service = new RegisterUserService();
                 return service.GetByUserId(id);
             }
             catch (System.Exception e)
@@ -34,10 +33,9 @@ namespace desafio.api.Controllers
         [HttpPost("signup")]
         public object SignUp([FromBody] SignUpModel model)
         {
-            var service = new RegisterUserService();
-            
             try
             {
+                var service = new RegisterUserService();
                 return service.Register(model);
             }
             catch (System.Exception e)
