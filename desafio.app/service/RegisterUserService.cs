@@ -25,8 +25,8 @@ namespace desafio.app.service
             profileRepository = new ProfileRepository(context);
         }
         
-        public Profile GetByUserId(){
-            return profileRepository.GetByUserId(Guid.NewGuid());
+        public Profile GetByUserId(Guid userId){
+            return profileRepository.GetByUserId(userId);
         }
         
         public RegisteredUserModel Register(SignUpModel model){

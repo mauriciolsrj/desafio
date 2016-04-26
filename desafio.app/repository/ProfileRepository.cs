@@ -16,7 +16,7 @@ namespace desafio.app.repository
         }
         
         public Profile GetByUserId(Guid userId){
-            return context.Profiles.FirstOrDefault();
+            return context.Profiles.FirstOrDefault(p=> p.UserId == userId);
         }
         
         public override IQueryable<Profile> GetAll() { 
