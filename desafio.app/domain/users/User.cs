@@ -22,24 +22,21 @@ namespace desafio.app.domain
         public DateTime Created { get; protected set; }
         
         public void SetEmail(string email){
-            if(string.IsNullOrEmpty(email))
-                throw new ArgumentException("Informe o e-mail do usuário.");
+            Assertion.IsFalse(string.IsNullOrEmpty(email), "Informe o e-mail do usuário.");
             
             Email = email;
         }
         
         public void SetPassword(string password){
-           if(string.IsNullOrEmpty(password))
-                throw new ArgumentException("Informe a senha do usuário.");
+            Assertion.IsFalse(string.IsNullOrEmpty(password), "Informe a senha do usuário.");
             
             Password = password;       
         }
         
          public void SetLastLogon(DateTime lastLogon){
-             if(lastLogon==DateTime.MinValue)
-                throw new ArgumentException("Data de último acesso inválida.");
+             Assertion.IsFalse(lastLogon==DateTime.MinValue, "Data de último acesso inválida.");
             
-            LastLogon = lastLogon;       
+             LastLogon = lastLogon;       
         }
         
         public bool PasswordMatch(string password){

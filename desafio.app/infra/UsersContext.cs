@@ -10,8 +10,7 @@ namespace desafio.app.context
 {
     public class UsersContext : DbContext
     {
-        public UsersContext(DbContextOptions options)
-        : base(options)
+        public UsersContext()
         {
             
         }
@@ -20,9 +19,16 @@ namespace desafio.app.context
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Telphone> Telphones { get; set; }
         
-        /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //Configure domain classes using modelBuilder here
+            optionsBuilder.UseInMemoryDatabase();
+        }
+        /*
+        public override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Telphone>()
+                .HasOne(p => p.Profile)
+                .WithMany(b => b.Telphones);
             
             base.OnModelCreating(modelBuilder);
         }*/

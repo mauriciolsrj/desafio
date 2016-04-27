@@ -6,7 +6,7 @@ using desafio.app.model;
 
 namespace desafio.app
 {
-    public interface ISignInUserService
+    public interface ISignInService
     {   
         RegisteredUserModel SignIn(SignInModel model);
     }

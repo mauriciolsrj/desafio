@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using desafio.app;
 using desafio.app.model;
 using desafio.app.domain;
 using desafio.app.service;
@@ -62,7 +63,7 @@ namespace desafio.tests
             var service = new RegisterUserService();
             var response = service.Register(model);
             
-            Exception ex = Assert.Throws<ArgumentException>(() => service.Register(model));
+            Exception ex = Assert.Throws<DuplicatedUserException>(() => service.Register(model));
             
             Assert.Equal("E-mail já existente", ex.Message);
         }

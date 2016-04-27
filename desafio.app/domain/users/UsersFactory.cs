@@ -45,7 +45,6 @@ namespace desafio.app.domain
                     var tel = new Telphone();
                     tel.SetPrefix(telphoneModel.ddd);
                     tel.SetNumber(telphoneModel.numero);
-                    
                     profile.AddTelphone(tel);
                 }
             }

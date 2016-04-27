@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using desafio.app.context;
 using desafio.app.domain;
 using desafio.app.model;
+using desafio.app;
 using desafio.app.repository;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 
 namespace desafio.app.service
 {
-    public class SignInService : AccountsService, ISignInUserService
+    public class SignInService : AccountsService, ISignInService
     {
         private const string invalidUserAndPasswordError = "Usuário e/ou senha inválidos";
         
@@ -23,18 +24,21 @@ namespace desafio.app.service
         public RegisteredUserModel SignIn(SignInModel model){
             try
             {   
+                Assertion.IsFalse(string.IsNullOrEmpty(model.email), "Informe o e-mail do usuário.");
+                Assertion.IsFalse(string.IsNullOrEmpty(model.senha), "Informe a senha do usuário.");
+                
                 Initialize();
                 user = usersRepository.GetByEmail(model.email);
                 
                 if(user==null)
-                    throw new ArgumentException(invalidUserAndPasswordError);
+                    throw new InvalidUserException(invalidUserAndPasswordError);
                 
                 if(user.PasswordMatch(model.senha)){
                     profile = profileRepository.GetByUserId(user.Id);
                     
                     return GetRegisteredUserModel();
                 }else
-                    throw new ArgumentException(invalidUserAndPasswordError);
+                    throw new InvalidUserException(invalidUserAndPasswordError);
             }
             catch (Exception e)
             {

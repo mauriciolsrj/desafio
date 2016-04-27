@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using desafio.app;
 using desafio.app.domain;
 using desafio.app.service;
 
@@ -28,7 +29,7 @@ namespace desafio.tests
             var tel = new Telphone();
             var prefix = 0;
             
-            Exception ex = Assert.Throws<ArgumentException>(() => tel.SetPrefix(prefix));
+            Exception ex = Assert.Throws<PreConditionException>(() => tel.SetPrefix(prefix));
             
             Assert.Equal("Informe o prefixo do telefone.", ex.Message);
         }
@@ -50,7 +51,7 @@ namespace desafio.tests
             var tel = new Telphone();
             var number = "";
             
-            Exception ex = Assert.Throws<ArgumentException>(() => tel.SetNumber(number));
+            Exception ex = Assert.Throws<PreConditionException>(() => tel.SetNumber(number));
             
             Assert.Equal("Informe o número do telefone.", ex.Message);
         }

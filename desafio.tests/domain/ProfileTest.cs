@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using desafio.app;
 using desafio.app.domain;
 using desafio.app.service;
 
@@ -28,7 +29,7 @@ namespace desafio.tests
             var profile = new Profile();
             var name = "";
             
-            Exception ex = Assert.Throws<ArgumentException>(() => profile.SetName(name));
+            Exception ex = Assert.Throws<PreConditionException>(() => profile.SetName(name));
             
             Assert.Equal("Informe o nome do perfil.", ex.Message);
         }
@@ -50,7 +51,7 @@ namespace desafio.tests
             var profile = new Profile();
             var userId = Guid.Empty;
             
-            Exception ex = Assert.Throws<ArgumentException>(() => profile.SetUserId(userId));
+            Exception ex = Assert.Throws<PreConditionException>(() => profile.SetUserId(userId));
             
             Assert.Equal("Informe o userId do perfil.", ex.Message);
         }

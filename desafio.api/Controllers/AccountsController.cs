@@ -15,30 +15,77 @@ namespace desafio.api.Controllers
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
+        private readonly IRegisterUserService registerUserService;
+        private readonly ISignInService signInService;
+
+        public AccountsController(IRegisterUserService registerUserService, ISignInService signInService)
+        {
+            this.registerUserService = registerUserService;
+            this.signInService = signInService;
+        }
+        
         // POST api/accounts/signup
         [HttpPost("signup")]
         public object SignUp([FromBody] SignUpModel model)
         {
             try
             {
-                var service = new RegisterUserService();
                 model.senha = CryptoUtility.GetMD5Hash(model.senha);
-                return service.Register(model);
+                return registerUserService.Register(model);
             }
-            catch (ArgumentException ae)
+            catch (PreConditionException ae)
             {
                 return new ErrorModel(){
                    mensagem = ae.Message,
                    statusCode = 412  
                 };
             }
+            catch (DuplicatedUserException ae)
+            {
+                return new ErrorModel(){
+                   mensagem = ae.Message,
+                   statusCode = 412  
+                };
+            }
+            catch (Exception e)
+            {
+                return new ErrorModel(){
+                   mensagem = string.Format("Ocorreu um erro interno não tratado: {0}", e.Message),
+                   statusCode = 500  
+                };
+            }
         }
         
         // POST api/accounts/signin
-        [HttpPost]
-        public void SignIn([FromBody]string value)
+        [HttpPost("signin")]
+        public object SignIn([FromBody] SignInModel model)
         {
-            //return value;
+            try
+            {
+                model.senha = CryptoUtility.GetMD5Hash(model.senha);
+                return signInService.SignIn(model);
+            }
+            catch (PreConditionException ae)
+            {
+                return new ErrorModel(){
+                   mensagem = ae.Message,
+                   statusCode = 412  
+                };
+            }
+            catch (InvalidUserException e)
+            {
+                return new ErrorModel(){
+                   mensagem = e.Message,
+                   statusCode = 412  
+                };
+            }
+            catch (Exception e)
+            {
+                return new ErrorModel(){
+                   mensagem = string.Format("Ocorreu um erro interno não tratado: {0}", e.Message),
+                   statusCode = 500  
+                };
+            }
         }
     }
 }

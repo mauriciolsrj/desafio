@@ -16,14 +16,12 @@ namespace desafio.app.service
     public abstract class ServiceBase
     {
         protected UsersContext context;
-        protected IContextFactory contextFactory;
         
         public ServiceBase() {
         }
         
         protected void Initialize(){
-            contextFactory = new MemoryContextFactory();
-            context = contextFactory.Create();
+            context = new UsersContext();
             
             InitializeRepositories();
         }

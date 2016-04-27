@@ -6,6 +6,8 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using desafio.app.context;
 using desafio.app.domain;
+using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Infrastructure;
 
 namespace desafio.app.repository
 {
@@ -21,7 +23,7 @@ namespace desafio.app.repository
         }
         
         public Profile GetByUserId(Guid userId){
-            return context.Profiles.FirstOrDefault(p=> p.UserId == userId);
+            return context.Profiles.Include(t=> t.Telphones).FirstOrDefault(p=> p.UserId == userId);
         }   
     }
 }

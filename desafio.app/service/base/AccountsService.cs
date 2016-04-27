@@ -42,7 +42,7 @@ namespace desafio.app.service
                 nome = profile.Name,
                 email = user.Email,
                 senha = user.Password,
-                //telefones = GetTelphoneModelCollection(),
+                telefones = GetTelphoneModelCollection(),
                 data_criacao = user.Created,
                 data_atualizacao = user.Created,
                 ultimo_login = user.LastLogon,

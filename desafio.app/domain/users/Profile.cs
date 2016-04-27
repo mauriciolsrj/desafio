@@ -14,7 +14,7 @@ namespace desafio.app.domain
     
         public Guid UserId { get; protected set; }
         public string Name { get; protected set; }
-        public ICollection<Telphone> Telphones { get; protected set; }
+        public List<Telphone> Telphones { get; protected set; }
         
         public void SetUserId(Guid userId){
             Assertion.IsFalse(userId==Guid.Empty, "Informe o userId do perfil.");

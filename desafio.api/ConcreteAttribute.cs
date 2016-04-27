@@ -5,22 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using desafio.app.model;
 using desafio.app.domain;
-using System.Net;
-using desafio.app.service;
-using System.Web.Http;
+using desafio.app;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace desafio.api
 {
-   public class NotImplExceptionFilterAttribute : ExceptionFilterAttribute 
+   /*public class PreConditionFilterAttribute : ExceptionFilterAttribute 
     {
         public override void OnException(HttpActionExecutedContext context)
         {
-            if (context.Exception is NotImplementedException)
+            if (context.Exception is PreConditionException)
             {
                 context.Response = new HttpResponseMessage(HttpStatusCode.NotImplemented);
             }
         }
-    }
+    }*/
 }

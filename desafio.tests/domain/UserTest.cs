@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using desafio.app;
 using desafio.app.domain;
 using desafio.app.service;
 
@@ -28,7 +29,7 @@ namespace desafio.tests
             var user = new User();
             var email = "";
             
-            Exception ex = Assert.Throws<ArgumentException>(() => user.SetEmail(email));
+            Exception ex = Assert.Throws<PreConditionException>(() => user.SetEmail(email));
             
             Assert.Equal("Informe o e-mail do usuário.", ex.Message);
         }
@@ -60,7 +61,7 @@ namespace desafio.tests
         { 
             var user = new User();
             
-            Exception ex = Assert.Throws<ArgumentException>(() => user.SetLastLogon(DateTime.MinValue));
+            Exception ex = Assert.Throws<PreConditionException>(() => user.SetLastLogon(DateTime.MinValue));
             
             Assert.Equal("Data de último acesso inválida.", ex.Message);
         }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
-using desafio.app.util;
+using desafio.app;
 
 namespace desafio.tests
 {

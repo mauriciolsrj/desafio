@@ -7,6 +7,9 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using desafio.app;
+using desafio.app.service;
+using desafio.app.repository;
 
 namespace desafio.api
 {
@@ -26,6 +29,10 @@ namespace desafio.api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add application services.
+            services.AddTransient<IRegisterUserService, RegisterUserService>();
+            services.AddTransient<ISignInService, SignInService>();
+            
             // Add framework services.
             services.AddMvc();
         }
