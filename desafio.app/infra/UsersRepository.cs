@@ -9,7 +9,7 @@ using desafio.app.domain;
 
 namespace desafio.app.repository
 {
-    public class UsersRepository : RepositoryBase<User>
+    public class UsersRepository : RepositoryBase<User>, IUsersRepository
     {
         public UsersRepository(UsersContext context) : base(context) {
             

@@ -13,20 +13,26 @@ using Microsoft.Data.Entity.Infrastructure;
 
 namespace desafio.app.service
 {
-    public class ServiceBase
+    public abstract class ServiceBase
     {
         protected UsersContext context;
+        protected IContextFactory contextFactory;
         
         public ServiceBase() {
-            InitializeContext();
         }
         
-        private void InitializeContext(){
-            context = ContextFactory.Create();   
+        protected void Initialize(){
+            contextFactory = new MemoryContextFactory();
+            context = contextFactory.Create();
+            
+            InitializeRepositories();
         }
+        
+        protected abstract void InitializeRepositories();
         
         protected void DisposeContext(){
-            context.Dispose();
+            if(context!=null)
+                context.Dispose();
         }
     }
 }

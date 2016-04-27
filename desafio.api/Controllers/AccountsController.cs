@@ -14,37 +14,26 @@ namespace desafio.api.Controllers
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
-        // GET api/profile/5
-        [HttpGet("profile/{id}")]
-        public object Profile(Guid id)
-        {
-            try
-            {
-                var service = new RegisterUserService();
-                return service.GetByUserId(id);
-            }
-            catch (System.Exception e)
-            {
-                return e.Message;
-            }
-        }
-
-        // POST api/signup
+        // POST api/accounts/signup
         [HttpPost("signup")]
         public object SignUp([FromBody] SignUpModel model)
         {
             try
             {
                 var service = new RegisterUserService();
+                model.senha = CryptoUtility.GetMD5Hash(model.senha);
                 return service.Register(model);
             }
-            catch (System.Exception e)
+            catch (ArgumentException ae)
             {
-                return e.Message;
+                return new ErrorModel(){
+                    mensagem = ae.Message,
+                    statusCode =   
+                };
             }
         }
         
-        // POST api/signin
+        // POST api/accounts/signin
         [HttpPost]
         public void SignIn([FromBody]string value)
         {

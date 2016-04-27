@@ -18,21 +18,15 @@ namespace desafio.app.service
     public class AccountsService : ServiceBase
     {
         public AccountsService() {
-            Initialize();
         }
         
         protected User user;
         protected Profile profile;
-        protected UsersFactory factory;
+        internal UsersFactory factory;
         
         protected UsersRepository usersRepository;
         protected ProfileRepository profileRepository;
-        
-        protected void Initialize(){
-            CreateUsersRepository();
-            CreateProfileRepository();
-        }
-           
+
         protected void CreateUsersRepository(){
            if(usersRepository==null)
                 usersRepository = new UsersRepository(context);
@@ -84,13 +78,18 @@ namespace desafio.app.service
         }
         
         protected void Dispose(){
-            if(usersRepository!=null)
+            if(usersRepository != null)
                 usersRepository.Dispose();
                 
-            if(profileRepository!=null)
+            if(profileRepository != null)
                 profileRepository.Dispose();
                 
             DisposeContext();
+        }
+        
+        protected override void InitializeRepositories(){
+            CreateUsersRepository();
+            CreateProfileRepository();
         }
     }
 }

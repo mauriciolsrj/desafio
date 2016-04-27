@@ -8,9 +8,9 @@ using Microsoft.Data.Entity.Infrastructure;
 
 namespace desafio.app.context
 {
-    public class ContextFactory
+    public class MemoryContextFactory : IContextFactory
     {
-        public static UsersContext Create(){
+        public UsersContext Create(){
             var optionsBuilder = new DbContextOptionsBuilder<UsersContext>();
             optionsBuilder.UseInMemoryDatabase();
             

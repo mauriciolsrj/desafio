@@ -15,7 +15,7 @@ using Microsoft.Data.Entity.Infrastructure;
 
 namespace desafio.app.service
 {
-    public class RegisterUserService : AccountsService
+    public class RegisterUserService : AccountsService, IRegisterUserService
     {
         public RegisterUserService() {
         }
@@ -23,6 +23,7 @@ namespace desafio.app.service
         public RegisteredUserModel Register(SignUpModel model){
             try
             {
+                Initialize();
                 factory = new UsersFactory(model);
                 factory.Create();
                 user = GetUser();
@@ -30,7 +31,7 @@ namespace desafio.app.service
                 profile.SetUserId(user.Id);
                 
                 ValidateDuplicatedUser();
-
+                
                 usersRepository.Insert(user);
                 profileRepository.Insert(profile);
                 

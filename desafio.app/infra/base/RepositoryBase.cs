@@ -13,12 +13,12 @@ namespace desafio.app.repository
     public abstract class RepositoryBase<T>: IRepository<T>, IDisposable where T : class
     {
         protected UsersContext context;
+        
+        public abstract void Insert(T entity);
 
         public RepositoryBase(UsersContext context) {
             this.context = context;
         }
-        
-        public abstract void Insert(T entity);
 
         public void Dispose() {
             if (context != null)
