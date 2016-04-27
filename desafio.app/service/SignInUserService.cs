@@ -7,24 +7,12 @@ using System.Threading.Tasks;
 using desafio.app.context;
 using desafio.app.domain;
 using desafio.app.model;
-using desafio.app.util;
 using desafio.app.repository;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 
 namespace desafio.app.service
 {
-    [AttributeUsage(AttributeTargets.Class)]
-    public class ContextAtrbAttribute :Attribute
-    {
-    private string _fileName;
-
-    public ContextAtrbAttribute(string fileName)
-    {
-    this._fileName = fileName;
-    }
-}
-
     public class SignInService : AccountsService, ISignInUserService
     {
         private const string invalidUserAndPasswordError = "Usuário e/ou senha inválidos";
@@ -34,9 +22,7 @@ namespace desafio.app.service
         
         public RegisteredUserModel SignIn(SignInModel model){
             try
-            {
-                model.senha = CryptoUtility.GetMD5Hash(model.senha);
-                
+            {   
                 Initialize();
                 user = usersRepository.GetByEmail(model.email);
                 

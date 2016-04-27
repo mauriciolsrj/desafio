@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using desafio.app.context;
 using desafio.app.domain;
 
-namespace desafio.app.repository
+namespace desafio.app
 {
     public interface IUsersRepository : IRepository<User>
     {

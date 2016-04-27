@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 
-namespace desafio.app.util
+namespace desafio.app
 {
     public class CryptoUtility
     {

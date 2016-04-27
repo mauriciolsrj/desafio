@@ -45,6 +45,17 @@ namespace desafio.tests
         }
         
         [Fact]
+        public void SetPassword()
+        { 
+            var user = new User();
+            var password = "abc123";
+             
+            user.SetPassword(password);
+            
+            Assert.Equal(user.Password, password);
+        }
+        
+        [Fact]
         public void SetLastLogonWhenLastLogonIsEmpty()
         { 
             var user = new User();

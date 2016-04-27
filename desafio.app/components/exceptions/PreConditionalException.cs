@@ -9,8 +9,10 @@ using desafio.app.domain;
 
 namespace desafio.app
 {
-    public interface IProfileRepository : IRepository<Profile>
+    public class PreConditionException : Exception
     {
-        Profile GetByUserId(Guid userId);
+           public PreConditionException(string message) : base(message){
+               
+           }
     }
 }

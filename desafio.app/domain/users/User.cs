@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using desafio.app.util;
+using desafio.app;
 
 namespace desafio.app.domain
 {
@@ -31,8 +31,6 @@ namespace desafio.app.domain
         public void SetPassword(string password){
            if(string.IsNullOrEmpty(password))
                 throw new ArgumentException("Informe a senha do usuário.");
-            
-            password = CryptoUtility.GetMD5Hash(password);
             
             Password = password;       
         }

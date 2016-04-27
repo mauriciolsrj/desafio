@@ -6,6 +6,7 @@ using Microsoft.AspNet.Mvc;
 using desafio.app.model;
 using desafio.app.domain;
 using desafio.app.service;
+using desafio.app;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,8 +28,8 @@ namespace desafio.api.Controllers
             catch (ArgumentException ae)
             {
                 return new ErrorModel(){
-                    mensagem = ae.Message,
-                    statusCode =   
+                   mensagem = ae.Message,
+                   statusCode = 412  
                 };
             }
         }
