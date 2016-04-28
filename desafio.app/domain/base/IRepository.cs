@@ -9,5 +9,7 @@ namespace desafio.app.domain
     public interface IRepository<T> where T : class
     {
         void Insert(T entity);
+        void Update(T entity);
+        void Dispose();
     }
 }

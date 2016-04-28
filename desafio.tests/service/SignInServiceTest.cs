@@ -35,6 +35,8 @@ namespace desafio.tests
             var service = new RegisterUserService();
             var user = service.Register(model);
             
+            var loginDate = user.ultimo_login;
+            
             var signInService = new SignInService();
             var signInModel = new SignInModel(){
                email = email,
@@ -45,6 +47,7 @@ namespace desafio.tests
             
             Assert.NotNull(loggedInUser);
             Assert.NotNull(loggedInUser.telefones);
+            Assert.True(loggedInUser.ultimo_login > loginDate);
         }
         
         [Fact]

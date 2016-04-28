@@ -18,9 +18,6 @@ namespace desafio.app.service
     {
         private const string invalidUserAndPasswordError = "Usuário e/ou senha inválidos";
         
-        public SignInService() {
-        }
-        
         public RegisteredUserModel SignIn(SignInModel model){
             try
             {   
@@ -28,6 +25,7 @@ namespace desafio.app.service
                 Assertion.IsFalse(string.IsNullOrEmpty(model.senha), "Informe a senha do usuário.");
                 
                 Initialize();
+                
                 user = usersRepository.GetByEmail(model.email);
                 
                 if(user==null)
@@ -36,8 +34,12 @@ namespace desafio.app.service
                 if(user.PasswordMatch(model.senha)){
                     profile = profileRepository.GetByUserId(user.Id);
                     
+                    user.SetLastLogon(DateTime.Now);
+                    usersRepository.Update(user);
+                    
                     return GetRegisteredUserModel();
-                }else
+                }
+                else
                     throw new InvalidUserException(invalidUserAndPasswordError);
             }
             catch (Exception e)

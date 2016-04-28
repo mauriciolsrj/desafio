@@ -7,7 +7,8 @@ using desafio.app.model;
 using desafio.app.domain;
 using desafio.app.service;
 using desafio.app;
-
+using System.Net;
+using Microsoft.AspNet.Authorization;
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace desafio.api.Controllers
@@ -31,27 +32,36 @@ namespace desafio.api.Controllers
             try
             {
                 model.senha = CryptoUtility.GetMD5Hash(model.senha);
+                
+                Response.StatusCode = (int)HttpStatusCode.Created;
+                
                 return registerUserService.Register(model);
             }
             catch (PreConditionException ae)
             {
+                Response.StatusCode = (int)HttpStatusCode.PreconditionFailed;
+                
                 return new ErrorModel(){
                    mensagem = ae.Message,
-                   statusCode = 412  
+                   statusCode = (int)HttpStatusCode.PreconditionFailed  
                 };
             }
             catch (DuplicatedUserException ae)
             {
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                
                 return new ErrorModel(){
                    mensagem = ae.Message,
-                   statusCode = 412  
+                   statusCode = (int)HttpStatusCode.Forbidden  
                 };
             }
             catch (Exception e)
             {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                
                 return new ErrorModel(){
                    mensagem = string.Format("Ocorreu um erro interno não tratado: {0}", e.Message),
-                   statusCode = 500  
+                   statusCode = (int)HttpStatusCode.InternalServerError  
                 };
             }
         }
@@ -63,28 +73,58 @@ namespace desafio.api.Controllers
             try
             {
                 model.senha = CryptoUtility.GetMD5Hash(model.senha);
+                
+                Response.StatusCode = (int)HttpStatusCode.OK;
+                
                 return signInService.SignIn(model);
             }
             catch (PreConditionException ae)
             {
+                Response.StatusCode = (int)HttpStatusCode.PreconditionFailed;
+                
                 return new ErrorModel(){
                    mensagem = ae.Message,
-                   statusCode = 412  
+                   statusCode = (int)HttpStatusCode.PreconditionFailed    
                 };
             }
             catch (InvalidUserException e)
             {
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                
                 return new ErrorModel(){
                    mensagem = e.Message,
-                   statusCode = 412  
+                   statusCode = (int)HttpStatusCode.Forbidden    
                 };
             }
             catch (Exception e)
             {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return new ErrorModel(){
                    mensagem = string.Format("Ocorreu um erro interno não tratado: {0}", e.Message),
-                   statusCode = 500  
+                   statusCode = (int)HttpStatusCode.InternalServerError  
                 };
+            }
+        }
+        
+         // GET api/accounts/signin
+        [HttpGet("profile")]
+        public object Profile([FromBody] SignInModel model)
+        {
+            try
+            {
+                return 1;
+            }
+            catch (PreConditionException ae)
+            {
+                return 2;
+            }
+            catch (InvalidUserException e)
+            {
+                return 2;
+            }
+            catch (Exception e)
+            {
+                return 4;
             }
         }
     }

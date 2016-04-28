@@ -15,6 +15,7 @@ namespace desafio.app.repository
         protected UsersContext context;
         
         public abstract void Insert(T entity);
+        public abstract void Update(T entity);
 
         public RepositoryBase(UsersContext context) {
             this.context = context;

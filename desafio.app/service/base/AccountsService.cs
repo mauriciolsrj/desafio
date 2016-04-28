@@ -24,8 +24,8 @@ namespace desafio.app.service
         protected Profile profile;
         internal UsersFactory factory;
         
-        protected UsersRepository usersRepository;
-        protected ProfileRepository profileRepository;
+        protected IUsersRepository usersRepository;
+        protected IProfileRepository profileRepository;
 
         protected void CreateUsersRepository(){
            if(usersRepository==null)

@@ -17,9 +17,6 @@ namespace desafio.app.service
 {
     public class RegisterUserService : AccountsService, IRegisterUserService
     {
-        public RegisterUserService() {
-        }
-        
         public RegisteredUserModel Register(SignUpModel model){
             try
             {

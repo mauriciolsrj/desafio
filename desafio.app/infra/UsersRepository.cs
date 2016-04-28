@@ -20,6 +20,11 @@ namespace desafio.app.repository
             context.SaveChanges();
         }
         
+        public override void Update(User entity){
+            context.Users.Attach(entity);
+            context.SaveChanges(); 
+        } 
+        
         public User GetByEmail(string email){
             return context.Users.FirstOrDefault(u=> u.Email == email);
         }
