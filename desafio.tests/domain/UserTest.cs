@@ -46,6 +46,16 @@ namespace desafio.tests
         }
         
         [Fact]
+        public void SetLastLogonWhenLastLogonIsEmpty()
+        { 
+            var user = new User();
+            
+            Exception ex = Assert.Throws<PreConditionException>(() => user.SetLastLogon(DateTime.MinValue));
+            
+            Assert.Equal("Data de último acesso inválida.", ex.Message);
+        }
+        
+        [Fact]
         public void SetPassword()
         { 
             var user = new User();
@@ -57,13 +67,34 @@ namespace desafio.tests
         }
         
         [Fact]
-        public void SetLastLogonWhenLastLogonIsEmpty()
+        public void SetPasswordWhenPasswordIsEmpty()
         { 
             var user = new User();
             
-            Exception ex = Assert.Throws<PreConditionException>(() => user.SetLastLogon(DateTime.MinValue));
+            Exception ex = Assert.Throws<PreConditionException>(() => user.SetPassword(""));
             
-            Assert.Equal("Data de último acesso inválida.", ex.Message);
+            Assert.Equal("Informe a senha do usuário.", ex.Message);
+        }
+        
+        [Fact]
+        public void SetUpdated()
+        { 
+            var user = new User();
+            var updated = DateTime.Now;
+             
+            user.SetUpdated(updated);
+            
+            Assert.Equal(user.Updated, updated);
+        }
+        
+        [Fact]
+        public void SetUpdatedWhenUpdatedIsEmpty()
+        { 
+            var user = new User();
+            
+            Exception ex = Assert.Throws<PreConditionException>(() => user.SetUpdated(DateTime.MinValue));
+            
+            Assert.Equal("Data de atualização inválida.", ex.Message);
         }
     }
 }

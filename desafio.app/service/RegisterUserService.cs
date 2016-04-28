@@ -45,8 +45,10 @@ namespace desafio.app.service
         }
         
         private void ValidateDuplicatedUser(){
-            if(usersRepository.VerifyUserExistsByEmail(user.Email))
-                    throw new DuplicatedUserException("E-mail já existente");
+            var lUser = usersRepository.GetByEmail(user.Email);
+            
+            if(lUser!=null)
+                throw new DuplicatedUserException("E-mail já existente");
         }
     }
 }

@@ -9,10 +9,10 @@ using desafio.app.domain;
 
 namespace desafio.app
 {
-    public interface IUsersRepository : IRepository<User>
+    public class NotAuthorizedException : Exception
     {
-        User GetByEmail(string email);
-        User GetByToken(string token);
-        User GetById(Guid id);
+           public NotAuthorizedException(string message) : base(message){
+               
+           }
     }
 }

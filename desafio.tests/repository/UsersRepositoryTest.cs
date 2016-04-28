@@ -60,10 +60,10 @@ namespace desafio.tests
         }
         
         [Fact]
-        public void VerifyIfUserExistsByEmailWhenUserExists()
+        public void GetByEmailWhenEmailExists()
         { 
             var user = new User();
-            var email = "mauriciolsrj12309101@gmail.com";
+            var email = "mauriciolsrj123091101@gmail.com";
             var password = "abc123";
             user.SetEmail(email);
             user.SetPassword(password);
@@ -72,20 +72,105 @@ namespace desafio.tests
             var repository = new UsersRepository(context);
             repository.Insert(user);
             
-            var response = repository.VerifyUserExistsByEmail(email);
+            var response = repository.GetByEmail(email);
             
-            Assert.True(response);
+            Assert.NotNull(response);
         }
         
         [Fact]
         public void VerifyIfUserExistsByEmailWhenUserNotExists()
         {
+            var user = new User();
+            var email = "m0932092389110424241@gmail.com";
+            var password = "abc123";
+            user.SetEmail(email);
+            user.SetPassword(password);
+            
             var context = new UsersContext();
             var repository = new UsersRepository(context);
+            repository.Insert(user);
             
-            var response = repository.VerifyUserExistsByEmail("093520983598@33235.com");
+            var response = repository.GetByEmail("1233123121");
             
-            Assert.False(response);
+            Assert.Null(response);
+        }
+        
+        [Fact]
+        public void GetByIdWhenIdExists()
+        { 
+            var user = new User();
+            var email = "124441241241@gmail.com";
+            var password = "abc123";
+            user.SetEmail(email);
+            user.SetPassword(password);
+            
+            var context = new UsersContext();
+            var repository = new UsersRepository(context);
+            repository.Insert(user);
+            
+            var userId = user.Id;
+            
+            var response = repository.GetById(userId);
+            
+            Assert.NotNull(response);
+        }
+        
+        [Fact]
+        public void GetByIdWhenIdNotExists()
+        {
+            var user = new User();
+            var email = "1244412532241241@gmail.com";
+            var password = "abc123";
+            user.SetEmail(email);
+            user.SetPassword(password);
+            
+            var context = new UsersContext();
+            var repository = new UsersRepository(context);
+            repository.Insert(user);
+            
+            var userId = user.Id;
+            
+            var response = repository.GetById(Guid.NewGuid());
+            
+            Assert.Null(response);
+        }
+        
+        [Fact]
+        public void GetByTokenWhenTokenExists()
+        { 
+            var user = new User();
+            var email = "124441241241@gmail.com";
+            var password = "abc123";
+            var token = "abc123";
+            user.SetEmail(email);
+            user.SetPassword(password);
+            user.SetToken(token);
+            var context = new UsersContext();
+            var repository = new UsersRepository(context);
+            repository.Insert(user);
+            
+            var response = repository.GetByToken(token);
+            
+            Assert.NotNull(response);
+        }
+        
+        [Fact]
+        public void GetByTokenWhenTokenNotExists()
+        {
+            var user = new User();
+            var email = "124441241241@gmail.com";
+            var password = "abc123";
+            var token = "1241242";
+            user.SetEmail(email);
+            user.SetPassword(password);
+            user.SetToken(token);
+            var context = new UsersContext();
+            var repository = new UsersRepository(context);
+            repository.Insert(user);
+            
+            var response = repository.GetByToken("12313132");
+            
+            Assert.Null(response);
         }
     }
 }

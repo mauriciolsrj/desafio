@@ -29,8 +29,12 @@ namespace desafio.app.repository
             return context.Users.FirstOrDefault(u=> u.Email == email);
         }
         
-        public bool VerifyUserExistsByEmail(string email){
-            return context.Users.FirstOrDefault(u=> u.Email == email) != null;
+        public User GetByToken(string token){
+            return context.Users.FirstOrDefault(u=> u.Token == token);
+        }
+        
+        public User GetById(Guid id){
+            return context.Users.FirstOrDefault(u=> u.Id == id);
         }
     }
 }

@@ -8,7 +8,6 @@ using desafio.app.domain;
 using desafio.app.service;
 using desafio.app;
 using System.Net;
-using Microsoft.AspNet.Authorization;
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace desafio.api.Controllers
@@ -106,12 +105,19 @@ namespace desafio.api.Controllers
             }
         }
         
-         // GET api/accounts/signin
+         // GET api/accounts/profile
         [HttpGet("profile")]
-        public object Profile([FromBody] SignInModel model)
+        public object Profile()
         {
             try
             {
+                 var extraheaders = new Dictionary<string, object> { { "foo", "bar" } };
+
+                //string result = JWT.JsonWebToken.Encode(extraheaders, new User(), "ABC", JWT.JwtHashAlgorithm.HS256);
+                //return result;
+                //var bearer = Request.Headers["Bearer"][0];
+                //return bearer;
+                
                 return 1;
             }
             catch (PreConditionException ae)

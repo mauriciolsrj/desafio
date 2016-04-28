@@ -11,6 +11,7 @@ namespace desafio.app.domain
         public User()
         {
             Created = DateTime.Now;
+            Updated = DateTime.Now;
             LastLogon = DateTime.Now;
             Id = Guid.NewGuid();
         }
@@ -20,6 +21,8 @@ namespace desafio.app.domain
         
         public DateTime LastLogon{ get; protected set; }
         public DateTime Created { get; protected set; }
+        public DateTime Updated { get; protected set; }
+        public string Token { get; protected set; }
         
         public void SetEmail(string email){
             Assertion.IsFalse(string.IsNullOrEmpty(email), "Informe o e-mail do usuário.");
@@ -37,6 +40,18 @@ namespace desafio.app.domain
              Assertion.IsFalse(lastLogon==DateTime.MinValue, "Data de último acesso inválida.");
             
              LastLogon = lastLogon;       
+        }
+        
+         public void SetToken(string token){
+             Assertion.IsFalse(string.IsNullOrEmpty(token), "Informe um token válido.");
+            
+             Token = token;       
+        }
+        
+         public void SetUpdated(DateTime updated){
+             Assertion.IsFalse(updated==DateTime.MinValue, "Data de atualização inválida.");
+            
+             Updated = updated;       
         }
         
         public bool PasswordMatch(string password){
