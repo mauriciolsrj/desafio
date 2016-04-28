@@ -43,7 +43,7 @@ namespace desafio.app.domain
                 foreach (var telphoneModel in model.telefones)
                 {
                     var tel = new Telphone();
-                    tel.SetPrefix(telphoneModel.ddd);
+                    tel.SetPrefix(int.Parse(telphoneModel.ddd));
                     tel.SetNumber(telphoneModel.numero);
                     profile.AddTelphone(tel);
                 }

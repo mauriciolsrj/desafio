@@ -18,19 +18,20 @@
         "System.Runtime": ""
       }
     },
-    "dotnet5.4": {
+    "dnxcore50": {
       "dependencies": {
         "Microsoft.CSharp": "4.0.1-beta-23516",
         "System.Collections": "4.0.11-beta-23516",
         "System.Linq": "4.0.1-beta-23516",
         "System.Threading": "4.0.11-beta-23516",
         "System.Net.Security": "4.0.0-beta-*",
-        "Microsoft.NETCore.Platforms": "1.0.1-beta-*",
-        "System.IdentityModel.Tokens.Jwt": "5.0.0-rc1-211161024"
+        "Microsoft.NETCore.Platforms": "1.0.1-beta-*"
       }
     }
   },
   "dependencies": {
-    "EntityFramework.InMemory": "7.0.0-rc1-final"
+    "EntityFramework.InMemory": "7.0.0-rc1-final",
+    "JwtDnx": "1.0.1",
+    "Newtonsoft.Json": "8.0.3"
   }
 }

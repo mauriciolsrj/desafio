@@ -11,7 +11,7 @@ using desafio.app.service;
 
 namespace desafio.tests
 {
-    public class ProfileRepositoryTest
+    public class ProfileRepositoryTest : TestBase
     {   
         [Fact]
         public void InsertProfile()
@@ -27,8 +27,7 @@ namespace desafio.tests
             profile.SetUserId(userId);
             profile.AddTelphone(tel);
             
-            var context = new UsersContext();
-            var repository = new ProfileRepository(context);
+            var repository = GetProfileRepository();
             repository.Insert(profile);
             
             Assert.True(profile.Id > 0);
@@ -48,8 +47,7 @@ namespace desafio.tests
             profile.SetUserId(userId);
             profile.AddTelphone(tel);
             
-            var context = new UsersContext();
-            var repository = new ProfileRepository(context);
+            var repository = GetProfileRepository();
             repository.Insert(profile);
             
             var response = repository.GetByUserId(profile.UserId);
@@ -65,8 +63,7 @@ namespace desafio.tests
         { 
             var userId = Guid.NewGuid();
             
-            var context = new UsersContext();
-            var repository = new ProfileRepository(context);
+            var repository = GetProfileRepository();
             
             var response = repository.GetByUserId(userId);
             

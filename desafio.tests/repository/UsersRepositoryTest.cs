@@ -11,7 +11,7 @@ using desafio.app.service;
 
 namespace desafio.tests
 {
-    public class UsersRepositoryTest
+    public class UsersRepositoryTest : TestBase
     {   
         [Fact]
         public void InserUser()
@@ -22,8 +22,7 @@ namespace desafio.tests
             user.SetEmail(email);
             user.SetPassword(password);
             
-            var context = new UsersContext();
-            var repository = new UsersRepository(context);
+            var repository = GetUsersRepository();
             repository.Insert(user);
         }
         
@@ -36,8 +35,7 @@ namespace desafio.tests
             user.SetEmail(email);
             user.SetPassword(password);
             
-            var context = new UsersContext();
-            var repository = new UsersRepository(context);
+            var repository = GetUsersRepository();
             repository.Insert(user);
             
             var response = repository.GetByEmail(email);
@@ -51,9 +49,7 @@ namespace desafio.tests
         { 
             var userId = Guid.NewGuid();
             
-            var context = new UsersContext();
-            var repository = new UsersRepository(context);
-            
+            var repository = GetUsersRepository();
             var response = repository.GetByEmail("aaaaa@aaa.com");
             
             Assert.Null(response);
@@ -68,8 +64,7 @@ namespace desafio.tests
             user.SetEmail(email);
             user.SetPassword(password);
             
-            var context = new UsersContext();
-            var repository = new UsersRepository(context);
+            var repository = GetUsersRepository();
             repository.Insert(user);
             
             var response = repository.GetByEmail(email);
@@ -86,8 +81,7 @@ namespace desafio.tests
             user.SetEmail(email);
             user.SetPassword(password);
             
-            var context = new UsersContext();
-            var repository = new UsersRepository(context);
+            var repository = GetUsersRepository();
             repository.Insert(user);
             
             var response = repository.GetByEmail("1233123121");
@@ -104,8 +98,7 @@ namespace desafio.tests
             user.SetEmail(email);
             user.SetPassword(password);
             
-            var context = new UsersContext();
-            var repository = new UsersRepository(context);
+            var repository = GetUsersRepository();
             repository.Insert(user);
             
             var userId = user.Id;
@@ -124,8 +117,7 @@ namespace desafio.tests
             user.SetEmail(email);
             user.SetPassword(password);
             
-            var context = new UsersContext();
-            var repository = new UsersRepository(context);
+            var repository = GetUsersRepository();
             repository.Insert(user);
             
             var userId = user.Id;
@@ -145,8 +137,7 @@ namespace desafio.tests
             user.SetEmail(email);
             user.SetPassword(password);
             user.SetToken(token);
-            var context = new UsersContext();
-            var repository = new UsersRepository(context);
+            var repository = GetUsersRepository();
             repository.Insert(user);
             
             var response = repository.GetByToken(token);
@@ -164,8 +155,7 @@ namespace desafio.tests
             user.SetEmail(email);
             user.SetPassword(password);
             user.SetToken(token);
-            var context = new UsersContext();
-            var repository = new UsersRepository(context);
+            var repository = GetUsersRepository();
             repository.Insert(user);
             
             var response = repository.GetByToken("12313132");

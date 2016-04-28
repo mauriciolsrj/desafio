@@ -57,5 +57,9 @@ namespace desafio.app.domain
         public bool PasswordMatch(string password){
             return password == Password;
         }
+        
+        public DateTime GetExpiration(){
+            return LastLogon.AddMinutes(30);
+        }
     }
 }

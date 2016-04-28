@@ -17,31 +17,25 @@ namespace desafio.app.service
 {
     public class RegisterUserService : AccountsService, IRegisterUserService
     {
+        public RegisterUserService(IProfileRepository profileRepository, 
+                                   IUsersRepository usersRepository) : base (profileRepository, usersRepository)
+        {
+        }
+        
         public RegisteredUserModel Register(SignUpModel model){
-            try
-            {
-                Initialize();
-                factory = new UsersFactory(model);
-                factory.Create();
-                user = GetUser();
-                profile = GetProfile();
-                profile.SetUserId(user.Id);
+            factory = new UsersFactory(model);
+            factory.Create();
+            user = factory.GetUser();
+            profile = factory.GetProfile();
+            profile.SetUserId(user.Id);
                 
-                ValidateDuplicatedUser();
+            ValidateDuplicatedUser();
+            GenerateUserToken();    
                 
-                usersRepository.Insert(user);
-                profileRepository.Insert(profile);
+            profileRepository.Insert(profile);
+            usersRepository.Insert(user);
                 
-                return GetRegisteredUserModel();
-            }
-            catch (System.Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-                Dispose();
-            }
+            return GetRegisteredUserModel();
         }
         
         private void ValidateDuplicatedUser(){

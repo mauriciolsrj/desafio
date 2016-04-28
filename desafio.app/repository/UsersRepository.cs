@@ -11,7 +11,7 @@ namespace desafio.app.repository
 {
     public class UsersRepository : RepositoryBase<User>, IUsersRepository
     {
-        public UsersRepository(UsersContext context) : base(context) {
+        public UsersRepository():base() {
             
         }
 

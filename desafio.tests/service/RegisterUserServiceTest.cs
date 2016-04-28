@@ -9,7 +9,7 @@ using desafio.app.service;
 
 namespace desafio.tests
 {
-    public class RegisterUserServiceTest
+    public class GetRegisterUserServiceTest : TestBase
     {   
         [Fact]
         public void RegisterUserProfileWithTelphones()
@@ -17,7 +17,7 @@ namespace desafio.tests
             var name = "Maurício Luís dos Santos";
             var email = "mauriciolsrj@gmail.com";
             var password = "abc123";
-            var prefix = 21;
+            var prefix = "21";
             var number = "31785826";
             
             var model = new SignUpModel(){
@@ -32,7 +32,7 @@ namespace desafio.tests
                 }
             };
             
-            var service = new RegisterUserService();
+            var service = GetRegisterUserService();
             var response = service.Register(model);
             
             Assert.Equal(model.nome, response.nome);
@@ -45,7 +45,7 @@ namespace desafio.tests
            var name = "Maurício Luís dos Santos";
             var email = "mauriciolsrj1@gmail.com";
             var password = "abc123";
-            var prefix = 21;
+            var prefix = "21";
             var number = "31785826";
             
             var model = new SignUpModel(){
@@ -60,7 +60,7 @@ namespace desafio.tests
                 }
             };
             
-            var service = new RegisterUserService();
+            var service = GetRegisterUserService();
             var response = service.Register(model);
             
             Exception ex = Assert.Throws<DuplicatedUserException>(() => service.Register(model));

@@ -9,7 +9,7 @@ using desafio.app;
 
 namespace desafio.tests
 {
-    public class SignInServiceTest
+    public class GetSignInServiceTest : TestBase
     {   
         [Fact]
         public void SignInWithSuccess()
@@ -17,7 +17,7 @@ namespace desafio.tests
             var name = "Maurício Luís dos Santos";
             var email = "contato.mclss@gmail.com";
             var password = "abc123";
-            var prefix = 21;
+            var prefix = "21";
             var number = "31785826";
             
             var model = new SignUpModel(){
@@ -32,18 +32,17 @@ namespace desafio.tests
                 }
             };
             
-            var service = new RegisterUserService();
+            var service = GetRegisterUserService();
             var user = service.Register(model);
             
             var loginDate = user.ultimo_login;
             
-            var signInService = new SignInService();
             var signInModel = new SignInModel(){
                email = email,
                senha = password  
             };
             
-            var loggedInUser = signInService.SignIn(signInModel);
+            var loggedInUser = GetSignInService().SignIn(signInModel);
             
             Assert.NotNull(loggedInUser);
             Assert.NotNull(loggedInUser.telefones);
@@ -56,7 +55,7 @@ namespace desafio.tests
             var name = "Maurício Luís dos Santos";
             var email = "mauriciolsrj1010@gmail.com";
             var password = "abc123";
-            var prefix = 21;
+            var prefix = "21";
             var number = "31785826";
             
             var model = new SignUpModel(){
@@ -71,16 +70,15 @@ namespace desafio.tests
                 }
             };
             
-            var service = new RegisterUserService();
+            var service = GetRegisterUserService();
             var user = service.Register(model);
             
-            var signInService = new SignInService();
             var signInModel = new SignInModel(){
                email = email,
                senha = "abc123456"  
             };
             
-            Exception ex = Assert.Throws<InvalidUserException>(() => signInService.SignIn(signInModel));
+            Exception ex = Assert.Throws<InvalidUserException>(() => GetSignInService().SignIn(signInModel));
             
             Assert.Equal("Usuário e/ou senha inválidos", ex.Message);
         }
@@ -90,13 +88,12 @@ namespace desafio.tests
         { 
             var email = "mauricio12345@gmail.com";
             
-            var signInService = new SignInService();
             var signInModel = new SignInModel(){
                email = email,
                senha = "abc123456"  
             };
             
-            Exception ex = Assert.Throws<InvalidUserException>(() => signInService.SignIn(signInModel));
+            Exception ex = Assert.Throws<InvalidUserException>(() => GetSignInService().SignIn(signInModel));
             
             Assert.Equal("Usuário e/ou senha inválidos", ex.Message);
         }
@@ -106,13 +103,12 @@ namespace desafio.tests
         { 
             var email = "";
             
-            var signInService = new SignInService();
             var signInModel = new SignInModel(){
                email = email,
                senha = "abc123456"  
             };
             
-            Exception ex = Assert.Throws<PreConditionException>(() => signInService.SignIn(signInModel));
+            Exception ex = Assert.Throws<PreConditionException>(() => GetSignInService().SignIn(signInModel));
             
             Assert.Equal("Informe o e-mail do usuário.", ex.Message);
         }
@@ -120,12 +116,11 @@ namespace desafio.tests
         [Fact]
         public void SignInErrorWhenPasswordIsEmpty()
         { 
-            var signInService = new SignInService();
             var signInModel = new SignInModel(){
                 email = "abc@abc.com"
             };
             
-            Exception ex = Assert.Throws<PreConditionException>(() => signInService.SignIn(signInModel));
+            Exception ex = Assert.Throws<PreConditionException>(() => GetSignInService().SignIn(signInModel));
             
             Assert.Equal("Informe a senha do usuário.", ex.Message);
         }

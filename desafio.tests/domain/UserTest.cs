@@ -96,5 +96,12 @@ namespace desafio.tests
             
             Assert.Equal("Data de atualização inválida.", ex.Message);
         }
+        
+        [Fact]
+        public void GetExpirationMustBe30MinutesOverThanLastLogon(){
+            var user = new User();
+            
+            Assert.Equal(user.GetExpiration(), user.LastLogon.AddMinutes(30));
+        }
     }
 }

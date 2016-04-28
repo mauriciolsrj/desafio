@@ -18,38 +18,30 @@ namespace desafio.app.service
     {
         private const string invalidUserAndPasswordError = "Usuário e/ou senha inválidos";
         
+        public SignInService(IProfileRepository profileRepository, 
+                             IUsersRepository usersRepository) : base(profileRepository, usersRepository)
+        {
+        }
+        
         public RegisteredUserModel SignIn(SignInModel model){
-            try
-            {   
-                Assertion.IsFalse(string.IsNullOrEmpty(model.email), "Informe o e-mail do usuário.");
-                Assertion.IsFalse(string.IsNullOrEmpty(model.senha), "Informe a senha do usuário.");
+           Assertion.IsFalse(string.IsNullOrEmpty(model.email), "Informe o e-mail do usuário.");
+           Assertion.IsFalse(string.IsNullOrEmpty(model.senha), "Informe a senha do usuário.");
                 
-                Initialize();
+           user = usersRepository.GetByEmail(model.email);
                 
-                user = usersRepository.GetByEmail(model.email);
+           if(user==null)
+               throw new InvalidUserException(invalidUserAndPasswordError);
                 
-                if(user==null)
-                    throw new InvalidUserException(invalidUserAndPasswordError);
-                
-                if(user.PasswordMatch(model.senha)){
-                    profile = profileRepository.GetByUserId(user.Id);
+           if(user.PasswordMatch(model.senha)){
+                profile = profileRepository.GetByUserId(user.Id);    
+                user.SetLastLogon(DateTime.Now);
+                GenerateUserToken();
+                usersRepository.Update(user);
                     
-                    user.SetLastLogon(DateTime.Now);
-                    usersRepository.Update(user);
-                    
-                    return GetRegisteredUserModel();
-                }
-                else
-                    throw new InvalidUserException(invalidUserAndPasswordError);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-                Dispose();
-            }
+                return GetRegisteredUserModel();
+             }
+             else
+                throw new InvalidUserException(invalidUserAndPasswordError);
         }
     }
 }

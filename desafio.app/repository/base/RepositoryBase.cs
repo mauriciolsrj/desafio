@@ -10,22 +10,19 @@ using Microsoft.Data.Entity.Infrastructure;
 
 namespace desafio.app.repository
 {
-    public abstract class RepositoryBase<T>: IRepository<T>, IDisposable where T : class
+    public abstract class RepositoryBase<T>: IRepository<T> where T : class
     {
         protected UsersContext context;
+        
+        public RepositoryBase(){
+            context = new UsersContext();
+        }
         
         public abstract void Insert(T entity);
         public abstract void Update(T entity);
 
         public RepositoryBase(UsersContext context) {
             this.context = context;
-        }
-
-        public void Dispose() {
-            if (context != null)
-                context.Dispose();
-                
-            GC.SuppressFinalize(this);
         }
     }
 }

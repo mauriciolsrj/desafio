@@ -18,7 +18,7 @@ namespace desafio.tests
             var name = "Maurício Luís dos Santos";
             var email = "mauriciolsrj@gmail.com";
             var password = "abc123";
-            var prefix = 21;
+            var prefix = "21";
             var number = "31785826";
             
             var model = new SignUpModel(){
@@ -46,7 +46,7 @@ namespace desafio.tests
             var name = "Maurício Luís dos Santos";
             var email = "mauriciolsrj@gmail.com";
             var password = "abc123";
-            var prefix = 21;
+            var prefix = "21";
             var number = "31785826";
             
             var model = new SignUpModel(){
@@ -74,7 +74,7 @@ namespace desafio.tests
             var name = "Maurício Luís dos Santos";
             var email = "mauriciolsrj@gmail.com";
             var password = "abc123";
-            var prefix = 21;
+            var prefix = "21";
             var number = "31785826";
             
             var model = new SignUpModel(){
@@ -102,7 +102,7 @@ namespace desafio.tests
             var name = "Maurício Luís dos Santos";
             var email = "mauriciolsrj@gmail.com";
             var password = "abc123";
-            var prefix = 21;
+            var prefix = "21";
             var number = "31785826";
             
             var model = new SignUpModel(){
@@ -121,7 +121,7 @@ namespace desafio.tests
             factory.Create();
             
             var profile = factory.GetProfile();
-            Assert.Equal(prefix, profile.Telphones.First().Prefix);
+            Assert.Equal(prefix, profile.Telphones.First().Prefix.ToString());
             Assert.Equal(number, profile.Telphones.First().Number);
         }
     }

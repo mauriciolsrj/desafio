@@ -17,11 +17,13 @@ namespace desafio.api.Controllers
     {
         private readonly IRegisterUserService registerUserService;
         private readonly ISignInService signInService;
+        private readonly IGetUserService getUserService;
 
-        public AccountsController(IRegisterUserService registerUserService, ISignInService signInService)
+        public AccountsController(IRegisterUserService registerUserService, ISignInService signInService, IGetUserService getUserService)
         {
             this.registerUserService = registerUserService;
             this.signInService = signInService;
+            this.getUserService = getUserService;
         }
         
         // POST api/accounts/signup
@@ -111,26 +113,53 @@ namespace desafio.api.Controllers
         {
             try
             {
-                 var extraheaders = new Dictionary<string, object> { { "foo", "bar" } };
-
-                //string result = JWT.JsonWebToken.Encode(extraheaders, new User(), "ABC", JWT.JwtHashAlgorithm.HS256);
-                //return result;
-                //var bearer = Request.Headers["Bearer"][0];
-                //return bearer;
-                
-                return 1;
+                var bearer = Request.Headers["Bearer"][0];
+                return getUserService.Get(bearer);
             }
             catch (PreConditionException ae)
             {
-                return 2;
+                Response.StatusCode = (int)HttpStatusCode.PreconditionFailed;
+                
+                return new ErrorModel(){
+                   mensagem = ae.Message,
+                   statusCode = (int)HttpStatusCode.PreconditionFailed    
+                };
+            }
+            
+            catch (NotAuthorizedException e)
+            {
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                
+                return new ErrorModel(){
+                   mensagem = e.Message,
+                   statusCode = (int)HttpStatusCode.Forbidden    
+                };
+            }
+            catch (SessionExpiredException e)
+            {
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                
+                return new ErrorModel(){
+                   mensagem = e.Message,
+                   statusCode = (int)HttpStatusCode.Forbidden    
+                };
             }
             catch (InvalidUserException e)
             {
-                return 2;
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                
+                return new ErrorModel(){
+                   mensagem = e.Message,
+                   statusCode = (int)HttpStatusCode.Forbidden    
+                };
             }
             catch (Exception e)
             {
-                return 4;
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return new ErrorModel(){
+                   mensagem = string.Format("Ocorreu um erro interno não tratado: {0}", e.Message),
+                   statusCode = (int)HttpStatusCode.InternalServerError  
+                };
             }
         }
     }

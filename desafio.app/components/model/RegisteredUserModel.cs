@@ -8,7 +8,7 @@ namespace desafio.app.model
     public class RegisteredUserModel
     {
         public Guid id { get; set; }
-        public Guid token { get; set; }
+        public string token { get; set; }
         
         public string nome { get; set; }
         public string email { get; set; }

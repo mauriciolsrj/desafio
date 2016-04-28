@@ -10,6 +10,5 @@ namespace desafio.app.domain
     {
         void Insert(T entity);
         void Update(T entity);
-        void Dispose();
     }
 }

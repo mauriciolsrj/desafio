@@ -13,7 +13,7 @@ namespace desafio.app.repository
 {
     public class ProfileRepository : RepositoryBase<Profile>, IProfileRepository
     {
-        public ProfileRepository(UsersContext context) : base(context) {
+        public ProfileRepository():base() {
             
         }
         

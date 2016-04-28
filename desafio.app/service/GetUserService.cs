@@ -16,37 +16,17 @@ namespace desafio.app.service
 {
     public class GetUserService : AccountsService, IGetUserService
     {
-        private const string notAuthorizedError = "Não autorizado";
+        public GetUserService(IProfileRepository profileRepository, 
+                              IUsersRepository usersRepository) : base (profileRepository, usersRepository)
+        {
+        }
         
-        public RegisteredUserModel Get(string token){
-            try
-            {   
-                Assertion.IsFalse(string.IsNullOrEmpty(token), "Informe um token válido");
-                
-                Initialize();
-                
-                user = usersRepository.GetByToken(token);
-                
-                if(user==null)
-                    throw new InvalidUserException(notAuthorizedError);
-                
-                // Caso o token exista, buscar o usuário pelo id passado através da query string e comparar se o token do usuário encontrado é igual ao token passado no header.
-                // Caso não seja o mesmo token, retornar erro com status apropriado e mensagem "Não autorizado"
-                // Caso seja o mesmo token, verificar se o último login foi a MENOS que 30 minutos atrás.
-                // Caso não seja a MENOS que 30 minutos atrás, retornar erro com status apropriado com mensagem "Sessão inválida".
-                
-                profile = profileRepository.GetByUserId(user.Id);
+        public RegisteredUserModel Get(string token){   
+            Assertion.IsFalse(string.IsNullOrEmpty(token), "Informe um token válido");
+            Authorize(token);
+            profile = profileRepository.GetByUserId(user.Id);
                         
-                return GetRegisteredUserModel();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-                Dispose();
-            }
+            return GetRegisteredUserModel();
         }
     }
 }
