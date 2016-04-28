@@ -34,7 +34,6 @@ namespace desafio.app.service
                 
            if(user.PasswordMatch(model.senha)){
                 profile = profileRepository.GetByUserId(user.Id);    
-                user.SetLastLogon(DateTime.Now);
                 GenerateUserToken();
                 usersRepository.Update(user);
                     

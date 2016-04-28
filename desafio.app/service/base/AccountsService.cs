@@ -39,7 +39,7 @@ namespace desafio.app.service
                 senha = user.Password,
                 telefones = GetTelphoneModelCollection(),
                 data_criacao = user.Created,
-                data_atualizacao = user.Created,
+                data_atualizacao = user.Updated,
                 ultimo_login = user.LastLogon,
                 id = user.Id,
                 token = user.Token
@@ -67,6 +67,7 @@ namespace desafio.app.service
         protected void GenerateUserToken(){
             var token = JwtUtility.Encode(user.Id, UnixDateUtility.ConvertToUnixTimestamp(user.GetExpiration()), UnixDateUtility.ConvertToUnixTimestamp(user.LastLogon));
             user.SetToken(token);
+            user.SetLastLogon(DateTime.Now);
             user.SetUpdated(DateTime.Now);
         }
         
