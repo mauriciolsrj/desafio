@@ -1,9 +1,19 @@
-# Ambiente
-* http://desafiomauricio.azurewebsites.net
-
 # Desafio .NET (RJ) - Concrete Solutions
-
 Crie um aplicativo backend que exporá uma API RESTful de criação de três endpoints (rotas): - SignUp - Login - Profile
+
+# Ambiente de produção
+* http://desafiomauricio.azurewebsites.net/api/accounts/signup [post]
+* http://desafiomauricio.azurewebsites.net/api/accounts/signin [post]
+* http://desafiomauricio.azurewebsites.net/api/accounts/profile [get]
+
+# Ambiente de Desenvolvimento
+* ASP.NET Core 1.0
+* DNX (Mac)
+* VSCode
+* XUnit
+* WebApi 2.0
+* JWT Token Generator
+* EntityFramework (InMemory)
 
 ### Requisitos
 * Banco de dados em memória.
@@ -24,10 +34,7 @@ Crie um aplicativo backend que exporá uma API RESTful de criação de três end
 * Injeção de dependência
 
 ### Segue a documentação dos endpoints:
-
 #### SignUp - Criação de Cadastro
-* http://desafiomauricio.azurewebsites.net/api/accounts/signup
-* post
 * Este endpoint deverá receber um usuário com os seguintes campos: { "nome": "sample string", "email": "sample string", "senha": "sample string", "telefones": [ { "numero": "sample string", "ddd": "sample string" } ] }
 * Em caso de sucesso retornar os dados do usuário cadastrado e incluir os seguintes campos:
 * "id": id do usuário (pode ser o próprio gerado pelo banco, porém seria interessante se fosse um GUID)
@@ -39,8 +46,6 @@ Crie um aplicativo backend que exporá uma API RESTful de criação de três end
 * O token deverá ser persistido junto com o usuário
 
 #### Login
-* http://desafiomauricio.azurewebsites.net/api/accounts/signin
-* post
 * Este endpoint irá receber um objeto com os seguintes campos: { "email": "sample string", "senha": "sample string", }
 * Caso o e-mail e a senha estejam corretas, retornar os mesmos dados do endpoint de SignUp.
 * Caso o e-mail não exista, retornar erro com status apropriado mais a mensagem "Usuário e/ou senha inválidos"
@@ -48,8 +53,6 @@ Crie um aplicativo backend que exporá uma API RESTful de criação de três end
 * Atualizar o campo de ultimo_login deste usuário para a data atual
 
 #### Profile
-* http://desafiomauricio.azurewebsites.net/api/accounts/profile
-* get
 * Chamadas para este endpoint devem conter um header na requisição de Authentication com o valor "Bearer {token}" onde {token} é o valor do recebido através do SignUp ou Login de um usuário.
 * Caso o token não exista, retornar erro com status apropriado com a mensagem "Não autorizado".
 * Caso o token exista, buscar o usuário pelo id passado através da query string e comparar se o token do usuário encontrado é igual ao token passado no header.
