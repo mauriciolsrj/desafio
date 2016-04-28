@@ -113,8 +113,11 @@ namespace desafio.api.Controllers
         {
             try
             {
-                var bearer = Request.Headers["Bearer"][0];
-                return getUserService.Get(bearer);
+                var bearer = Request.Headers["Bearer"];
+                
+                Assertion.IsFalse(string.IsNullOrEmpty(bearer), "Chamadas para este endpoint devem conter um header na requisição de Authentication com o valor 'Bearer {token}'");
+                
+                return getUserService.Get(bearer[0]);
             }
             catch (PreConditionException ae)
             {

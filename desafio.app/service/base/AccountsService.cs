@@ -89,11 +89,16 @@ namespace desafio.app.service
         }
         
         protected Guid GetUserIdByToken(string token){
+            try{
                 var jsonToken = JwtUtility.Decode(token);
                 var tokenInfo = JsonUtility.Deserialize<Dictionary<string, object>>(jsonToken);
                 Guid userId;
                 Guid.TryParse(tokenInfo["userId"].ToString(), out userId);
                 return userId;
+            }catch {
+                throw new SessionExpiredException(invalidSessionError);
+            }
+             
         }
     }
 }
