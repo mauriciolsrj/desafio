@@ -119,6 +119,14 @@ namespace desafio.api.Controllers
                 
                 return getUserService.Get(bearer[0]);
             }
+            catch (ArgumentException ae){
+                Response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
+                
+                return new ErrorModel(){
+                   mensagem = ae.Message,
+                   statusCode = (int)HttpStatusCode.ExpectationFailed    
+                };
+            }
             catch (PreConditionException ae)
             {
                 Response.StatusCode = (int)HttpStatusCode.PreconditionFailed;
@@ -131,11 +139,11 @@ namespace desafio.api.Controllers
             
             catch (NotAuthorizedException e)
             {
-                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 
                 return new ErrorModel(){
                    mensagem = e.Message,
-                   statusCode = (int)HttpStatusCode.Forbidden    
+                   statusCode = (int)HttpStatusCode.Unauthorized    
                 };
             }
             catch (SessionExpiredException e)
@@ -155,6 +163,24 @@ namespace desafio.api.Controllers
                    mensagem = e.Message,
                    statusCode = (int)HttpStatusCode.Forbidden    
                 };
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return new ErrorModel(){
+                   mensagem = string.Format("Ocorreu um erro interno não tratado: {0}", e.Message),
+                   statusCode = (int)HttpStatusCode.InternalServerError  
+                };
+            }
+        }
+        
+        // GET api/accounts/list
+        [HttpGet("list")]
+        public object List()
+        {
+            try
+            {
+                return getUserService.All();
             }
             catch (Exception e)
             {

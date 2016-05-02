@@ -36,5 +36,9 @@ namespace desafio.app.repository
         public User GetById(Guid id){
             return context.Users.FirstOrDefault(u=> u.Id == id);
         }
+        
+        public IEnumerable<User> GetAll(){
+            return context.Users.ToList();
+        }
     }
 }

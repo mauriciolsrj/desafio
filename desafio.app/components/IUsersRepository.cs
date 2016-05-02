@@ -14,5 +14,6 @@ namespace desafio.app
         User GetByEmail(string email);
         User GetByToken(string token);
         User GetById(Guid id);
+        IEnumerable<User> GetAll();
     }
 }

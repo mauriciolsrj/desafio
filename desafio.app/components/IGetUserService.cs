@@ -9,5 +9,6 @@ namespace desafio.app
     public interface IGetUserService
     {   
         RegisteredUserModel Get(string token);
+        IEnumerable<RegisteredUserModel> All();
     }
 }

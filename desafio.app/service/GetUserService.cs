@@ -28,5 +28,16 @@ namespace desafio.app.service
                         
             return GetRegisteredUserModel();
         }
+        
+        public IEnumerable<RegisteredUserModel> All(){
+            var users = usersRepository.GetAll();
+            var result = new List<RegisteredUserModel>();
+            
+            foreach(var user in users){
+                this.user = user;
+                this.profile = profileRepository.GetByUserId(user.Id);
+                yield return GetRegisteredUserModel();
+            }
+        }
     }
 }

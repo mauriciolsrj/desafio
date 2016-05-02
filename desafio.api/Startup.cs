@@ -49,7 +49,7 @@ namespace desafio.api
 
             app.UseIISPlatformHandler();
             app.UseStaticFiles();
-
+            //app.UseExceptionHandler();
             app.UseMvc();
         }
 

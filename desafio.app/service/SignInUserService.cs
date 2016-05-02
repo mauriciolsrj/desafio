@@ -33,7 +33,9 @@ namespace desafio.app.service
                throw new InvalidUserException(invalidUserAndPasswordError);
                 
            if(user.PasswordMatch(model.senha)){
-                profile = profileRepository.GetByUserId(user.Id);    
+                profile = profileRepository.GetByUserId(user.Id);
+                user.SetLastLogon(DateTime.Now);
+                user.SetUpdated(DateTime.Now);   
                 GenerateUserToken();
                 usersRepository.Update(user);
                     

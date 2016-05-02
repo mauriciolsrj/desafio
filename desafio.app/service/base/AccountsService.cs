@@ -65,10 +65,9 @@ namespace desafio.app.service
         }
         
         protected void GenerateUserToken(){
+            
             var token = JwtUtility.Encode(user.Id, UnixDateUtility.ConvertToUnixTimestamp(user.GetExpiration()), UnixDateUtility.ConvertToUnixTimestamp(user.LastLogon));
             user.SetToken(token);
-            user.SetLastLogon(DateTime.Now);
-            user.SetUpdated(DateTime.Now);
         }
         
         public void Authorize(string token){

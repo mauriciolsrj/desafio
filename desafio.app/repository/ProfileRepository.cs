@@ -29,6 +29,6 @@ namespace desafio.app.repository
         
         public Profile GetByUserId(Guid userId){
             return context.Profiles.Include(t=> t.Telphones).FirstOrDefault(p=> p.UserId == userId);
-        }  
+        }
     }
 }
