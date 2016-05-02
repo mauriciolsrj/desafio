@@ -9,33 +9,34 @@ using desafio.app.model;
 
 namespace desafio.api
 {
-    public class ExceptionHandlerMiddleware
+    public class LoggerHandlerMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
+        public LoggerHandlerMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
             _next = next;
-            _logger = loggerFactory.CreateLogger<ExceptionHandlerMiddleware>();
+            _logger = loggerFactory.CreateLogger<LoggerHandlerMiddleware>();
         }
 
         public async Task Invoke(HttpContext context)
         {
-            _logger.LogInformation("Handling request: " + context.Request.Path);
+            _logger.LogInformation("Iniciando requisição: " + context.Request.Path);
+            
             await _next.Invoke(context);
             
-            _logger.LogInformation("Finished handling request.");
+            _logger.LogInformation("Encerrada a requisição.");
             
             await _next(context);
         }
     }
     
-    public static class ExceptionHandlerExtensions
+    public static class LoggerHandlerExtensions
     {
-        public static IApplicationBuilder UseExceptionHandler(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseLoggerHandler(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<ExceptionHandlerMiddleware>();
+            return builder.UseMiddleware<LoggerHandlerMiddleware>();
         }
     }
 }

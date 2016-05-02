@@ -32,6 +32,8 @@ namespace desafio.api.Controllers
         {
             try
             {
+                Assertion.IsTrue(model!=null, "É preciso informar um usuário.");
+                    
                 model.senha = CryptoUtility.GetMD5Hash(model.senha);
                 
                 Response.StatusCode = (int)HttpStatusCode.Created;
@@ -61,7 +63,7 @@ namespace desafio.api.Controllers
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 
                 return new ErrorModel(){
-                   mensagem = string.Format("Ocorreu um erro interno não tratado: {0}", e.Message),
+                   mensagem = string.Format("Ocorreu um erro interno: {0}", e.Message),
                    statusCode = (int)HttpStatusCode.InternalServerError  
                 };
             }
@@ -73,6 +75,8 @@ namespace desafio.api.Controllers
         {
             try
             {
+                Assertion.IsTrue(model!=null, "Informe um login e senha.");
+                
                 model.senha = CryptoUtility.GetMD5Hash(model.senha);
                 
                 Response.StatusCode = (int)HttpStatusCode.OK;
@@ -101,7 +105,7 @@ namespace desafio.api.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return new ErrorModel(){
-                   mensagem = string.Format("Ocorreu um erro interno não tratado: {0}", e.Message),
+                   mensagem = string.Format("Ocorreu um erro interno: {0}", e.Message),
                    statusCode = (int)HttpStatusCode.InternalServerError  
                 };
             }
@@ -118,14 +122,6 @@ namespace desafio.api.Controllers
                 Assertion.IsFalse(string.IsNullOrEmpty(bearer), "Chamadas para este endpoint devem conter um header na requisição de Authentication com o valor 'Bearer {token}'");
                 
                 return getUserService.Get(bearer[0]);
-            }
-            catch (ArgumentException ae){
-                Response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
-                
-                return new ErrorModel(){
-                   mensagem = ae.Message,
-                   statusCode = (int)HttpStatusCode.ExpectationFailed    
-                };
             }
             catch (PreConditionException ae)
             {
@@ -168,7 +164,7 @@ namespace desafio.api.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return new ErrorModel(){
-                   mensagem = string.Format("Ocorreu um erro interno não tratado: {0}", e.Message),
+                   mensagem = string.Format("Ocorreu um erro interno: {0}", e.Message),
                    statusCode = (int)HttpStatusCode.InternalServerError  
                 };
             }
@@ -186,7 +182,7 @@ namespace desafio.api.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return new ErrorModel(){
-                   mensagem = string.Format("Ocorreu um erro interno não tratado: {0}", e.Message),
+                   mensagem = string.Format("Ocorreu um erro interno: {0}", e.Message),
                    statusCode = (int)HttpStatusCode.InternalServerError  
                 };
             }
